@@ -1,11 +1,11 @@
 import wordle/counter
 import gleeunit/should
-import gleam/map
+import gleam/dict
 
 pub fn from_string_test() {
   counter.from_string("apple")
   |> counter.to_map
-  |> should.equal(map.from_list([#("a", 1), #("p", 2), #("l", 1), #("e", 1)]))
+  |> should.equal(dict.from_list([#("a", 1), #("p", 2), #("l", 1), #("e", 1)]))
 }
 
 pub fn has_test() {
@@ -22,5 +22,5 @@ pub fn decrement_test() {
   |> counter.decrement("p")
   |> counter.decrement("e")
   |> counter.to_map
-  |> should.equal(map.from_list([#("a", 0), #("p", 1), #("l", 1), #("e", 0)]))
+  |> should.equal(dict.from_list([#("a", 0), #("p", 1), #("l", 1), #("e", 0)]))
 }

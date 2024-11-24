@@ -2,15 +2,14 @@ import gleeunit
 import gleeunit/should
 import wordle/word
 import wordle/match
-import gleam/set
 
 pub fn main() {
   gleeunit.main()
 }
 
 fn should_match_like(g, s, expected) {
-  assert Ok(guess) = word.new(g)
-  assert Ok(solution) = word.new(s)
+  let assert Ok(guess) = word.new(g)
+  let assert Ok(solution) = word.new(s)
   match.guess(guess, solution)
   |> should.equal(expected)
 }

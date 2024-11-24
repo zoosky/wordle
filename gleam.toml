@@ -1,9 +1,9 @@
 name = "wordle"
-version = "0.1.0"
+version = "0.2.0"
 
 [dependencies]
-gleam_stdlib = "~> 0.20"
-gleam_erlang = "~> 0.9.2"
+gleam_stdlib = "~> 0.43.0"
+gleam_erlang = "~> 0.24"
 
 [dev-dependencies]
-gleeunit = "~> 0.6"
+gleeunit = "~> 1.0"

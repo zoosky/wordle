@@ -21,5 +21,5 @@ pub fn seq(codes: List(Int)) -> fn(String) -> String {
     codes
     |> list.map(int.to_string)
     |> string.join(";")
-  fn(s) { string.concat(["\e[", start_sequence, "m", s, "\e[0m"]) }
+  fn(s) { string.concat(["\u{001b}[", start_sequence, "m", s, "\u{001b}[0m"]) }
 }

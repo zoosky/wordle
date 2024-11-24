@@ -1,9 +1,6 @@
 import wordle/word
 import gleam/string
-import gleam/set
 import gleam/list
-import gleam/map
-import gleam/option
 import wordle/counter
 
 pub fn guess(guess: word.Word, solution: word.Word) -> List(Match) {

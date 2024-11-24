@@ -1,14 +1,11 @@
-import gleam/io
 import gleam/erlang
-import gleam/string
-import gleam/int
+import gleam/io
 import gleam/list
-import gleam/set
-import gleam/function
 import gleam/result
+import gleam/string
 import wordle/ansi
-import wordle/word
 import wordle/match
+import wordle/word
 
 pub fn main() {
   let solution = choose_solution()
@@ -18,8 +15,10 @@ pub fn main() {
 }
 
 fn choose_solution() -> word.Word {
-  assert Ok(w) = word.new("gleam")
-  w
+  case word.new("gleam") {
+    Ok(w) -> w
+    Error(_) -> panic as "Invalid solution word"
+  }
 }
 
 fn play(game: Game) {
@@ -42,15 +41,14 @@ type PromptGuessError {
 }
 
 fn prompt_guess() -> word.Word {
-  let res = {
-    try input =
-      erlang.get_line("> ")
-      |> result.map_error(GetLineError)
-    try word =
+  let res = 
+    erlang.get_line("> ")
+    |> result.map_error(GetLineError)
+    |> result.then(fn(input) {
       word.new(input)
       |> result.map_error(NewWordError)
-    Ok(word)
-  }
+    })
+
   case res {
     Ok(w) -> w
     Error(GetLineError(err)) -> {
@@ -59,6 +57,10 @@ fn prompt_guess() -> word.Word {
     }
     Error(NewWordError(word.InvalidLengthError)) -> {
       io.println("The word needs to be five letters long.")
+      prompt_guess()
+    }
+    Error(NewWordError(word.InvalidCharactersError)) -> {
+      io.println("The word must contain only letters.")
       prompt_guess()
     }
   }
